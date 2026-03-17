@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kabed Woul - Free Scrap Collecting Service</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI;
+}
+
+body{
+background:#f5f5f5;
+transition:0.4s;
+}
+
+header{
+background:linear-gradient(45deg,#1fa463,#0c6b3d);
+color:white;
+text-align:center;
+padding:30px;
+}
+
+.logo{
+font-size:40px;
+font-weight:bold;
+letter-spacing:2px;
+}
+
+.tag{
+font-size:18px;
+opacity:0.9;
+}
+
+nav{
+background:#222;
+text-align:center;
+padding:15px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin:0 15px;
+font-size:18px;
+transition:0.3s;
+}
+
+nav a:hover{
+color:#00ff99;
+}
+
+.hero{
+height:420px;
+background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),
+url("https://images.unsplash.com/photo-1532996122724-e3c354a0b15b");
+background-size:cover;
+color:white;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+.hero h1{
+font-size:50px;
+margin-bottom:10px;
+}
+
+.hero p{
+font-size:20px;
+margin-bottom:20px;
+}
+
+.hero button{
+padding:14px 30px;
+font-size:18px;
+border:none;
+border-radius:6px;
+background:#00c853;
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+.hero button:hover{
+background:#009624;
+}
+
+section{
+padding:70px 20px;
+text-align:center;
+}
+
+.section-title{
+font-size:32px;
+margin-bottom:40px;
+}
+
+.cards{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+}
+
+.card{
+background:white;
+padding:25px;
+width:260px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+transition:0.4s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+}
+
+.price-card{
+background:#1fa463;
+color:white;
+}
+
+form{
+max-width:420px;
+margin:auto;
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+form input, form textarea{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:6px;
+}
+
+form button{
+background:#1fa463;
+color:white;
+border:none;
+padding:14px;
+width:100%;
+font-size:16px;
+cursor:pointer;
+border-radius:6px;
+}
+
+form button:hover{
+background:#157a47;
+}
+
+#message{
+margin-top:15px;
+color:green;
+font-weight:bold;
+}
+
+footer{
+background:#222;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+padding:15px 18px;
+border-radius:50%;
+font-size:24px;
+text-decoration:none;
+}
+
+.dark-toggle{
+position:fixed;
+top:20px;
+right:20px;
+background:white;
+padding:8px 12px;
+border-radius:20px;
+cursor:pointer;
+font-size:14px;
+}
+
+.dark{
+background:#121212;
+color:white;
+}
+
+.dark .card,
+.dark form{
+background:#1e1e1e;
+color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="dark-toggle" onclick="toggleDark()">🌙 Dark</div>
+
+<header>
+<div class="logo">♻ Kabed Woul</div>
+<div class="tag">Free Scrap Collecting Service</div>
+</header>
+
+<nav>
+<a href="#">Home</a>
+<a href="#services">Services</a>
+<a href="#price">Prices</a>
+<a href="#pickup">Pickup</a>
+</nav>
+
+<div class="hero">
+<h1>Turn Your Scrap Into Value</h1>
+<p>We collect scrap from your home for FREE</p>
+<button onclick="scrollPickup()">Book Pickup</button>
+</div>
+
+<section id="services">
+
+<div class="section-title">Our Services</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>🔩 Metal Scrap</h3>
+<p>Iron, steel, aluminium and other metal scrap collection.</p>
+</div>
+
+<div class="card">
+<h3>🧴 Plastic Waste</h3>
+<p>Plastic bottles and containers collected for recycling.</p>
+</div>
+
+<div class="card">
+<h3>💻 Electronic Waste</h3>
+<p>Old mobiles, laptops and electronic items.</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="price">
+
+<div class="section-title">Estimated Scrap Prices</div>
+
+<div class="cards">
+
+<div class="card price-card">
+<h3>Iron</h3>
+<p>₹25 / KG</p>
+</div>
+
+<div class="card price-card">
+<h3>Aluminium</h3>
+<p>₹120 / KG</p>
+</div>
+
+<div class="card price-card">
+<h3>Plastic</h3>
+<p>₹15 / KG</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="pickup">
+
+<div class="section-title">Request Scrap Pickup</div>
+
+<form id="pickupForm">
+
+<input type="text" id="name" placeholder="Your Name" required>
+<input type="text" id="address" placeholder="Address" required>
+<input type="tel" id="phone" placeholder="Phone Number" required>
+<textarea id="scrap" placeholder="Type of Scrap"></textarea>
+
+<button type="submit">Submit Request</button>
+
+<p id="message"></p>
+
+</form>
+
+</section>
+
+<footer>
+
+<p>© 2026 Kabed Woul | Free Scrap Collection</p>
+
+</footer>
+
+<a class="whatsapp" href="#">💬</a>
+
+<script>
+
+function scrollPickup(){
+document.getElementById("pickup").scrollIntoView({
+behavior:"smooth"
+});
+}
+document.getElementById("pickupForm").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+let data = {
+name: document.getElementById("name").value,
+address: document.getElementById("address").value,
+phone: document.getElementById("phone").value,
+scrap: document.getElementById("scrap").value
+};
+
+fetch("https://script.google.com/macros/s/AKfycbxkPmhX5dqD8SZpCcpXBy_BFz7gXz9yJjjaJIz1rzKB9nWiWtskST0_58ULlQlCb6EELA/exec",{
+method:"POST",
+body:JSON.stringify(data)
+})
+.then(res=>res.text())
+.then(res=>{
+document.getElementById("message").innerText =
+"✅ Pickup request submitted! Our team will contact you soon.";
+});
+
+});
+
+function toggleDark(){
+document.body.classList.toggle("dark");
+}
+
+</script>
+
+</body>
+</html>
