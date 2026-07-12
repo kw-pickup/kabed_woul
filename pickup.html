@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Pickup | Kabed Woul</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        <img src="logo.png.png" alt="Kabed Woul Logo">
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="pickup.html">Book Pickup</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+</header>
+
+<section class="pickup-page">
+
+    <h1>Book Scrap Pickup</h1>
+
+    <p>Fill in the details below and we'll schedule your pickup.</p>
+
+    <form class="pickup-form" id="pickupForm">
+
+        <input type="text"
+               name="name"
+               placeholder="Full Name"
+               required>
+
+        <input type="tel"
+               name="phone"
+               placeholder="Phone Number"
+               pattern="[0-9]{10}"
+               maxlength="10"
+               required>
+
+        <button type="button" id="locationBtn">
+            📍 Use My Current Location
+        </button>
+
+        <input type="text"
+               id="locationBox"
+               name="location"
+               placeholder="Your Current Location"
+               readonly
+               required>
+
+        <select name="scrapType" required>
+            <option value="">Select Scrap Type</option>
+            <option>Paper</option>
+            <option>Plastic</option>
+            <option>Metal</option>
+            <option>E-Waste</option>
+            <option>Cardboard</option>
+            <option>Mixed Scrap</option>
+        </select>
+
+        <input type="number"
+               name="weight"
+               placeholder="Approx Weight (KG)"
+               min="1"
+               required>
+
+        <input type="date"
+               name="pickupDate"
+               required>
+
+        <textarea
+            name="notes"
+            rows="5"
+            placeholder="Additional Notes (Optional)"></textarea>
+
+        <button type="submit" id="submitBtn">
+            🚚 Book Pickup
+        </button>
+
+    </form>
+
+    <div id="successMessage" class="success-box" style="display:none;">
+
+        <h2>✅ Pickup Request Submitted Successfully!</h2>
+
+        <p>Thank you for choosing <strong>Kabed Woul</strong>.</p>
+
+        <p>Your pickup request has been received successfully.</p>
+
+        <p>📞 Our team will contact you shortly.</p>
+
+        <p>🚚 Your pickup will be scheduled within a maximum of <strong>24 hours.</strong></p>
+
+        <p><strong>Request ID:</strong> <span id="requestId"></span></p>
+
+        <br>
+
+        <a href="index.html" class="btn-home">
+            🏠 Back to Home
+        </a>
+
+        <button type="button"
+                class="btn-again"
+                onclick="location.reload()">
+            📋 Book Another Pickup
+        </button>
+
+    </div>
+
+</section>
+<script>
+const locationBtn = document.getElementById("locationBtn");
+const locationBox = document.getElementById("locationBox");
+
+const pickupForm = document.querySelector(".pickup-form");
+const successBox = document.getElementById("successMessage");
+const requestId = document.getElementById("requestId");
+
+// Current Location
+locationBtn.addEventListener("click", () => {
+
+    if (!navigator.geolocation) {
+        alert("Geolocation is not supported by your browser.");
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
+
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        try {
+
+            const response = await fetch(
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
+            );
+
+            const data = await response.json();
+
+            locationBox.value = data.display_name;
+
+        } catch (error) {
+
+            locationBox.value = "Unable to fetch address.";
+
+        }
+
+    }, () => {
+
+        alert("Location permission denied.");
+
+    });
+
+});
+
+// Form Submit
+pickupForm.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    const formData = new FormData(pickupForm);
+
+    const submitBtn = document.getElementById("submitBtn");
+    submitBtn.innerHTML = "Submitting...";
+    submitBtn.disabled = true;
+
+    fetch("https://script.google.com/macros/s/AKfycbwW2faqqM8oieJjBBXw7KlqMXHrHTLJi55guUE-EJpTCMhYlXnrElrOBnn9mI8k4DvuHA/exec", {
+        method: "POST",
+        body: formData
+    })
+
+    .then(response => response.text())
+
+    .then(data => {
+
+        const id = "KW-" + Math.floor(1000 + Math.random() * 9000);
+
+        requestId.innerText = id;
+
+        pickupForm.style.display = "none";
+
+        successBox.style.display = "block";
+
+    })
+
+    .catch(error => {
+
+        alert("❌ Unable to submit your pickup request.\nPlease try again.");
+
+        submitBtn.innerHTML = "🚚 Book Pickup";
+        submitBtn.disabled = false;
+
+        console.error(error);
+
+    });
+
+});
+</script>
+</body>
+</html>

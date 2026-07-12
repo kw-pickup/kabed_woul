@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Kabed Woul</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<header>
+
+    <div class="logo">
+        <img src="logo.png.png" alt="Kabed Woul Logo">
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="pickup.html">Book Pickup</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+</header>
+
+    <section class="contact-page">
+
+        <div class="contact-info">
+
+            <h1>Contact Us</h1>
+
+            <p>
+                We'd love to hear from you. Contact us for scrap pickup or any queries.
+            </p>
+
+            <form id="contactForm">
+
+    <input type="text"
+           name="name"
+           placeholder="Your Name"
+           required>
+
+    <input type="email"
+           name="email"
+           placeholder="Email Address"
+           required>
+
+    <input type="tel"
+           name="phone"
+           placeholder="Phone Number"
+           pattern="[0-9]{10}"
+           maxlength="10"
+           required>
+
+    <textarea
+        name="message"
+        rows="5"
+        placeholder="Your Message"
+        required></textarea>
+
+    <button type="submit" id="contactBtn">
+        Send Message
+    </button>
+
+</form>
+
+            <!-- Thank you message (hidden by default) -->
+            <div id="thankYouMsg" class="thank-you-box" style="display:none;">
+                <h2>🎉 Thank You!</h2>
+                <p>Your message has been received. We'll get back to you soon.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <script>
+
+const form = document.getElementById("contactForm");
+const thankYouMsg = document.getElementById("thankYouMsg");
+const contactBtn = document.getElementById("contactBtn");
+
+form.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    contactBtn.innerHTML = "Sending...";
+    contactBtn.disabled = true;
+
+    const formData = new FormData(form);
+
+    fetch("https://script.google.com/macros/s/AKfycbzAAVQ7XO1Yp2aNNHppt8vSgqlgunFBsj13kJ1pz7P5gMT0FyqTj_kMWl3Ke80SSI9H/exec", {
+
+        method: "POST",
+
+        body: formData
+
+    })
+
+    .then(response => response.text())
+
+    .then(data => {
+
+        form.style.display = "none";
+        thankYouMsg.style.display = "block";
+
+    })
+
+    .catch(error => {
+
+        alert("Unable to send your message.");
+        console.error(error);
+
+        contactBtn.innerHTML = "Send Message";
+        contactBtn.disabled = false;
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
